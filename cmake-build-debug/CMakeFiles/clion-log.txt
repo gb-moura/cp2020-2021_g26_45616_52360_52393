@@ -1,0 +1,4 @@
+"/Users/goncalomoura/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/211.7142.21/CLion.app/Contents/bin/cmake/mac/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /Users/goncalomoura/Desktop/cp2020-2021_g26_45616_52360_52393
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/goncalomoura/Desktop/cp2020-2021_g26_45616_52360_52393/cmake-build-debug

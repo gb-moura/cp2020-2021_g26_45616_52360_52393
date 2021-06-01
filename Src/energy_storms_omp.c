@@ -138,7 +138,7 @@ Storm read_storm_file( char *fname ) {
  */
 int main(int argc, char *argv[]) {
     int i,j,k;
-
+    //criar threads com o omp
     /* 1.1. Read arguments */
     if (argc<3) {
         fprintf(stderr,"Usage: %s <size> <storm_1_file> [ <storm_i_file> ] ... \n", argv[0] );
@@ -156,6 +156,7 @@ int main(int argc, char *argv[]) {
     /* 1.3. Intialize maximum levels to zero */
     float maximum[ num_storms ];
     int positions[ num_storms ];
+
     for (i=0; i<num_storms; i++) {
         maximum[i] = 0.0f;
         positions[i] = 0;
@@ -173,12 +174,26 @@ int main(int argc, char *argv[]) {
         fprintf(stderr,"Error: Allocating the layer memory\n");
         exit( EXIT_FAILURE );
     }
+    /**
+     *
     for( k=0; k<layer_size; k++ ) layer[k] = 0.0f;
-    for( k=0; k<layer_size; k++ ) layer_copy[k] = 0.0f;
+  
+    for( k=0; k<layer_size; k++ )
+     */
+    //unified the two for initializing the layer and layer copy
+    for( k=0; k<layer_size; k++ ){
+        layer[k] = 0.0f;
+        layer_copy[k] = 0.0f;
+    }
+
+
     
     /* 4. Storms simulation */
+    //iteration for each wave file
+
     for( i=0; i<num_storms; i++) {
 
+        //4.1->parallelizable block
         /* 4.1. Add impacts energies to layer cells */
         /* For each particle */
         for( j=0; j<storms[i].size; j++ ) {
@@ -193,9 +208,11 @@ int main(int argc, char *argv[]) {
                 update( layer, layer_size, k, position, energy );
             }
         }
-
+        //--------------------------------------------------------------------
+        //4.2 -> parallelizable block
         /* 4.2. Energy relaxation between storms */
         /* 4.2.1. Copy values to the ancillary array */
+
         for( k=0; k<layer_size; k++ ) 
             layer_copy[k] = layer[k];
 
@@ -203,8 +220,11 @@ int main(int argc, char *argv[]) {
                   Skip updating the first and last positions */
         for( k=1; k<layer_size-1; k++ )
             layer[k] = ( layer_copy[k-1] + layer_copy[k] + layer_copy[k+1] ) / 3;
+//--------------------------------------------------------------------------------
+        /* parallelizable block
+         * 4.3. Locate the maximum value in the layer, and its position
+         * */
 
-        /* 4.3. Locate the maximum value in the layer, and its position */
         for( k=1; k<layer_size-1; k++ ) {
             /* Check it only if it is a local maximum */
             if ( layer[k] > layer[k-1] && layer[k] > layer[k+1] ) {

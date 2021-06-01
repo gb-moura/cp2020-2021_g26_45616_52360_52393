@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/cc -g -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX11.1.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/cp2020_2021_g26_45616_52360_52393.dir/Src/energy_storms.c.o CMakeFiles/cp2020_2021_g26_45616_52360_52393.dir/Src/energy_storms_omp.c.o -o cp2020_2021_g26_45616_52360_52393 

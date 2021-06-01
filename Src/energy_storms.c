@@ -98,6 +98,7 @@ void debug_print(int layer_size, float *layer, int *positions, float *maximum, i
  * Function: Read data of particle storms from a file
  */
 Storm read_storm_file( char *fname ) {
+
     FILE *fstorm = fopen( fname, "r" );
     if ( fstorm == NULL ) {
         fprintf(stderr,"Error: Opening storm file %s\n", fname );
@@ -145,11 +146,12 @@ int main(int argc, char *argv[]) {
     }
 
     int layer_size = atoi( argv[1] );
+
     int num_storms = argc-2;
     Storm storms[ num_storms ];
 
     /* 1.2. Read storms information */
-    for( i=2; i<argc; i++ ) 
+    for( i=2; i<argc; i++ )
         storms[i-2] = read_storm_file( argv[i] );
 
     /* 1.3. Intialize maximum levels to zero */
