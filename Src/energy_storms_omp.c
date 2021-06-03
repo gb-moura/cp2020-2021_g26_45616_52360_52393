@@ -165,7 +165,7 @@ int main(int argc, char *argv[]) {
 
     /* 2. Begin time measurement */
     double ttotal = cp_Wtime();
-    printf("theads: %d\n",omp_get_num_threads());
+
     /* START: Do NOT optimize/parallelize the code of the main program above this point */
 
     /* 3. Allocate memory for the layer and initialize to zero */
@@ -179,14 +179,10 @@ int main(int argc, char *argv[]) {
     //unified the two for initializing the layer and layer copy
     #pragma omp parallel for
         for (k = 0; k < layer_size; k++) {
+            printf("threads: %d\n",omp_get_num_threads());
             layer[k] = 0.0f;
             layer_copy[k] = 0.0f;
         }
-
-
-
-
-
     
     /* 4. Storms simulation */
     //iteration for each wave file
@@ -204,6 +200,7 @@ int main(int argc, char *argv[]) {
             int position = storms[i].posval[j*2];
 
             /* For each cell in the layer */
+
             #pragma omp parallel for
             for( k=0; k<layer_size; k++ ) {
                 /* Update the energy value for the cell */
