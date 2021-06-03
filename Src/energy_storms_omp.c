@@ -18,7 +18,8 @@
 #include<stdlib.h>
 #include<math.h>
 #include<sys/time.h>
-#include<omp-tools.h>
+
+#include <omp.h>
 
 /* Function to get wall time */
 double cp_Wtime(){
@@ -138,7 +139,7 @@ Storm read_storm_file( char *fname ) {
  */
 int main(int argc, char *argv[]) {
     int i,j,k;
-    //criar threads com o omp
+
     /* 1.1. Read arguments */
     if (argc<3) {
         fprintf(stderr,"Usage: %s <size> <storm_1_file> [ <storm_i_file> ] ... \n", argv[0] );
@@ -164,7 +165,7 @@ int main(int argc, char *argv[]) {
 
     /* 2. Begin time measurement */
     double ttotal = cp_Wtime();
-
+    printf("theads: %d\n",omp_get_num_threads());
     /* START: Do NOT optimize/parallelize the code of the main program above this point */
 
     /* 3. Allocate memory for the layer and initialize to zero */
@@ -174,17 +175,16 @@ int main(int argc, char *argv[]) {
         fprintf(stderr,"Error: Allocating the layer memory\n");
         exit( EXIT_FAILURE );
     }
-    /**
-     *
-    for( k=0; k<layer_size; k++ ) layer[k] = 0.0f;
-  
-    for( k=0; k<layer_size; k++ )
-     */
+
     //unified the two for initializing the layer and layer copy
-    for( k=0; k<layer_size; k++ ){
-        layer[k] = 0.0f;
-        layer_copy[k] = 0.0f;
-    }
+    #pragma omp parallel for
+        for (k = 0; k < layer_size; k++) {
+            layer[k] = 0.0f;
+            layer_copy[k] = 0.0f;
+        }
+
+
+
 
 
     
@@ -193,9 +193,10 @@ int main(int argc, char *argv[]) {
 
     for( i=0; i<num_storms; i++) {
 
-        //4.1->parallelizable block
+        //4.1-> parallelizable block
         /* 4.1. Add impacts energies to layer cells */
         /* For each particle */
+
         for( j=0; j<storms[i].size; j++ ) {
             /* Get impact energy (expressed in thousandths) */
             float energy = (float)storms[i].posval[j*2+1] * 1000;
@@ -203,12 +204,16 @@ int main(int argc, char *argv[]) {
             int position = storms[i].posval[j*2];
 
             /* For each cell in the layer */
+            #pragma omp parallel for
             for( k=0; k<layer_size; k++ ) {
                 /* Update the energy value for the cell */
                 update( layer, layer_size, k, position, energy );
             }
         }
+
         //--------------------------------------------------------------------
+
+
         //4.2 -> parallelizable block
         /* 4.2. Energy relaxation between storms */
         /* 4.2.1. Copy values to the ancillary array */

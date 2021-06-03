@@ -1,4 +1,4 @@
-#
+ #
 # Simplified simulation of high-energy particle storms
 #
 # Parallel computing (Degree in Computer Engineering)
@@ -21,7 +21,11 @@
 CC=gcc
 MPICC=mpicc
 CUDACC=nvcc
+#flag changed  to because fopenmp ws work with clang
 OMPFLAG=-fopenmp
+OMPL= -lomp
+
+W=-Wall
 
 # Flags for optimization and libs
 FLAGS=-O3
@@ -54,7 +58,7 @@ energy_storms_seq: energy_storms.c
 	$(CC) $(CFLAGS) $(DEBUG) -o $@ $< $(LIBS)
 
 energy_storms_omp: energy_storms_omp.c
-	$(CC) $(CFLAGS) $(DEBUG) $(OMPFLAG) -o $@ $< $(LIBS)
+	$(CC) $(CFLAGS) $(DEBUG) $(OMPFLAG) $(W)  -o $@ $< $(LIBS)
 
 # Remove the target files
 clean:
