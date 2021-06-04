@@ -18,7 +18,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <sys/time.h>
-
 #include <omp.h>
 
 /* Function to get wall time */
@@ -153,8 +152,8 @@ Storm read_storm_file(char *fname)
 int main(int argc, char *argv[])
 {
     int i, j, k;
-    float maxVal;
-    int index;
+    float maxVal = 0.0f;
+    //int index = 0;
 
     /* 1.1. Read arguments */
     if (argc < 3)
@@ -248,29 +247,31 @@ int main(int argc, char *argv[])
 /* parallelizable block
          * 4.3. Locate the maximum value in the layer, and its position
          * */
-#pragma omp parallel private(maxVal, index) 
+#pragma omp parallel private(maxVal, index)
         {
-            index = 0;
-            maxVal = 0;
-#pragma omp for nowait 
+
+#pragma omp for nowait
             for (k = 1; k < layer_size - 1; k++)
             {
-                if(maximum[i]>maxVal){
-                    maxVal = layer[k];
-                    index = k;
-                }
+                // printf("maxVal: %f\n", maxVal);
+                int con = layer[k] > maxVal ? 1 : 0;
 
                 /* Check it only if it is a local maximum */
                 if (layer[k] > layer[k - 1] && layer[k] > layer[k + 1])
                 {
-
-#pragma omp critical
+                    if (con == 1)
                     {
-                        if (layer[k] > maximum[i])
-                        {
-                            maximum[i] = maxVal;
-                            positions[i] = index;
-                        }
+                        // printf("i'm here %d\n",index);
+                        maxVal = layer[k];
+                       // index = k;
+                    }
+
+                    if (layer[k] > maximum[i])
+                    {
+#pragma omp atomic write
+                        maximum[i] = maxVal;
+//  #pragma omp atomic write
+                        positions[i] = k;
                     }
                 }
             }
@@ -304,4 +305,3 @@ int main(int argc, char *argv[])
     /* 9. Program ended successfully */
     return 0;
 }
-
