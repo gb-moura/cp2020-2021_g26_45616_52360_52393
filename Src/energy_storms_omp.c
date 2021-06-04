@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 {
     int i, j, k;
     float maxVal = 0.0f;
-    //int index = 0;
+    int index = 0;
 
     /* 1.1. Read arguments */
     if (argc < 3)
@@ -263,14 +263,14 @@ int main(int argc, char *argv[])
                     {
                         // printf("i'm here %d\n",index);
                         maxVal = layer[k];
-                       // index = k;
+                        index = k;
                     }
 
                     if (layer[k] > maximum[i])
                     {
 #pragma omp atomic write
                         maximum[i] = maxVal;
-//  #pragma omp atomic write
+#pragma omp atomic write
                         positions[i] = k;
                     }
                 }
