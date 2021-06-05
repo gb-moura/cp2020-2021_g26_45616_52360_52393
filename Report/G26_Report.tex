@@ -400,7 +400,7 @@
 % journal papers have the author affiliations above the "Manuscript
 % received ..."  text while in non-compsoc journals this is reversed. Sigh.
 
-\author{Gonçalo~Moura,~\IEEEmembership{M,~52361,}
+\author{Gonçalo~Moura,~\IEEEmembership{Student,~52361,}
         Gonçalo~Querido,~\IEEEmembership{Student,~45616,}
         and~Renato~Oliveira,~\IEEEmembership{Student,~52393}% <-this % stops a space
 \IEEEcompsocitemizethanks{\IEEEcompsocthanksitem M. Shell was with the Department
@@ -474,13 +474,8 @@ E-mail: see http://www.michaelshell.org/contact.html
 \IEEEtitleabstractindextext{%
 \begin{abstract}
 In this report we will approach topics regarding the parallelization of a problem concerning a programming code that simulates high-energy particles bombardment on a surface. Through a given code, this report is focused on analysing the effect of the speed up and accuracy of a parallelized code compared to its sequential version, using the Instruments Profiler on LINUX to measure memory/resource usage during the execution. To overcome the parallelization problems found, the solution will be based on the slides given to us on the theoretical and practical classes, having always in regard the bibliography suggested for study.
-PROFILER: INSTRUMENT MAC OS USED AS A PROFILER, BUT HAD TO CHANGE TO LINUX
 \end{abstract}
-
-% Note that keywords are not normally used for peerreview papers.
-\begin{IEEEkeywords}
-Computer Society, IEEE, IEEEtran, journal, \LaTeX, paper, template.
-\end{IEEEkeywords}}
+}
 
 
 % make the title area
@@ -539,10 +534,11 @@ Computer Society, IEEE, IEEEtran, journal, \LaTeX, paper, template.
 % 
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
-\IEEEPARstart{T}{his} report will be focused on the implementation of a parallelized solution regarding the problem of 
-% You must have at least 2 lines in the paragraph with the drop letter
-% (should never be an issue)
-I wish you the best of success.
+\IEEEPARstart{T}{his} report will be focused on the implementation of a possible parallelized solution regarding the problem of Storms of High-energy Particles. This solution will be used to compare and analyze performance and speed-up results against its sequential version.
+\\During the report, every bit of code that was thought to be beneficial to be parallelized will be discussed, giving a theoretical context on why it was decided, supported by tested results. We will discuss the implementation strategy as well as all the problems had in its execution. To measure the amount of resources used and to analyze the code hotspots, we resorted to a profiler, and in this report we chose Instruments for MAC OS (formerly known as Xray) for this purpose. Due to running errors later encountered, our results were measured from a machine with LINUX OS.
+\\To proceed to a proper analysis, assuring there are as fewer changes as possible, all nine tests present in the assignment were run in the same machine forty times using each solution: forty times the sequential code and forty times the parallelized code. The results shown for each test case are based on the average of the forty times it was run.
+\\All graphics shown in this report show the size of the array in the X axis and the execution time in the Y axis.
+
 
 \hfill mds
  
