@@ -535,14 +535,9 @@ In this report we will approach topics regarding the parallelization of a proble
 % Here we have the typical use of a "T" for an initial drop letter
 % and "HIS" in caps to complete the first word.
 \IEEEPARstart{T}{his} report will be focused on the implementation of a possible parallelized solution regarding the problem of Storms of High-energy Particles. This solution will be used to compare and analyze performance and speed-up results against its sequential version.
-\\During the report, every bit of code that was thought to be beneficial to be parallelized will be discussed, giving a theoretical context on why it was decided, supported by tested results. We will discuss the implementation strategy as well as all the problems had in its execution. To measure the amount of resources used and to analyze the code hotspots, we resorted to a profiler, and in this report we chose Instruments for MAC OS (formerly known as Xray) for this purpose. Due to running errors later encountered, our results were measured from a machine with LINUX OS.
+\\During the report, every bit of code that was thought to be beneficial to be parallelized will be discussed, giving a theoretical context on why it was decided, supported by tested results. We will discuss the implementation strategy as well as all the problems had in its execution. To measure the amount of resources used and to analyze the code hotspots, we resorted to a profiler, and in this report we chose Instruments for MAC OS for this purpose. Due to running errors later encountered, our results were measured from a machine with LINUX OS.
 \\To proceed to a proper analysis, assuring there are as fewer changes as possible, all nine tests present in the assignment were run in the same machine forty times using each solution: forty times the sequential code and forty times the parallelized code. The results shown for each test case are based on the average of the forty times it was run.
 \\All graphics shown in this report show the size of the array in the X axis and the execution time in the Y axis.
-
-
-\hfill mds
- 
-\hfill August 26, 2015
 
 \subsection{Subsection Heading Here}
 Subsection text here.
@@ -650,14 +645,17 @@ Subsubsection text here.
 % \fnbelowfloat command of the stfloats package.
 
 
+\section{Profiler}
+In order to discover CPU activity variation and memory allocation for each step of the code, we used a profiler to display the events occurring in the application. The one chosen to discover what was needed was Instruments (formerly known as Xray), for MAC OS.
+\\By using this profiler, we discovered that, by running the .omp file, it uses 20.3 percent of the computer processor. On the same information, we can see that the update function present in the given code takes 18.4 percent. By doing the math, we can conclude that the update function ends up weighting as much as 90.64 percent on the processor.
+\\With this information, we can conclude that most of the processing power goes to the update function, so (NÃO SEI AINDA O QUE PÔR AQUI)
 
+\section{Parallelized Code}
+
+In this section we will talk about the parts of the code present in the .omp file, referencing the sections by the name of the method and the number of the section in that method (if there is one).
 
 \section{Conclusion}
 The conclusion goes here.
-
-
-
-
 
 % if have a single appendix:
 %\appendix[Proof of the Zonklar Equations]
