@@ -84,7 +84,7 @@ Arguments: \
 
 Script1 - Parallel version to save output on a excel file
 
-#!/bin/sh\
+```#!/bin/sh\
 i=0\
 while [ $i -ne $1 ]\
 do\
@@ -95,9 +95,10 @@ do\
         sleep $2
 	
 done | tee output_file.csv
+```
 
 Script 2 - Parallel version to only run the test several times
-
+```
 #!/bin/sh\
 i=0\
 while [ $i -ne $1 ]\
@@ -109,10 +110,11 @@ do\
         sleep $2
 	
 done
-
+```
 Sequential\
 Script 3 - Sequential version to save the output on a excel file
 \
+```
 #!/bin/sh\
 i=0\
 while [ $i -ne $1 ]\
@@ -124,9 +126,10 @@ do\
         sleep $2
 	
 done | tee output_seq_file.csv
-
+```
 
 Script 4 - Sequential version to run a test several times
+```
 #!/bin/sh\
 i=0\
 while [ $i -ne $1 ]\
@@ -138,7 +141,7 @@ do\
         sleep $2
 	
 done 
+```
 
---------------------------SCRIPTS END-----------------------------
 
 
