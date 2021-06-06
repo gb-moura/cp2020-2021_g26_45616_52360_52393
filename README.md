@@ -59,7 +59,7 @@ nano "filename".sh\
 copy the code of Script 3 or Script 4, depending on if you want to save the output on a excel file, and paste it on your script file.\
 Ctrl+X e enter - to save the file\
 cat "filemame".sh -  to see if the script was saved\
-chmod +x "filename".sh -  to give kernel permission to run the bash file \
+chmod +x "filename".sh -  to give kernel permission to run the bash file 
 
 
     Parallel Script:
@@ -69,7 +69,7 @@ nano "filename".sh\
 copy the code of Script 1 or Script 2, depending on if you want to save the output on a excel file, and paste it on your script file.\
 Ctrl+X e enter - to save the file\
 cat "filemame".sh -  to see if the script was saved\
-chmod +x "filename".sh -  to give kernel permission to run the bash file\
+chmod +x "filename".sh -  to give kernel permission to run the bash file
 
 
 
@@ -79,7 +79,7 @@ chmod +x "filename".sh -  to give kernel permission to run the bash file\
 
 Arguments: \
     arg1 -> array size\
-    arg2 -> list of wave files\
+    arg2 -> list of wave files
 
 
 Script1 - Parallel version to save output on a excel file
@@ -96,7 +96,7 @@ do\
 	
 done | tee output_file.csv
 
-Script 2 - Parallel version to only run the test several times\
+Script 2 - Parallel version to only run the test several times
 
 #!/bin/sh\
 i=0\
@@ -111,7 +111,7 @@ do\
 done
 
 Sequential\
-Script 3 - Sequential version to save the output on a excel file\
+Script 3 - Sequential version to save the output on a excel file
 \
 #!/bin/sh\
 i=0\
@@ -126,7 +126,7 @@ do\
 done | tee output_seq_file.csv
 
 
-Script 4 - Sequential version to run a test several times\
+Script 4 - Sequential version to run a test several times
 #!/bin/sh\
 i=0\
 while [ $i -ne $1 ]\
@@ -135,7 +135,8 @@ do\
         echo "$i"\
 	#./print.sh\
 	./energy_storms_seq arg1 arg2
-	sleep $2	
+	sleep $2
+	
 done 
 
 
