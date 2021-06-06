@@ -14,9 +14,9 @@
  * This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
  * https://creativecommons.org/licenses/by-sa/4.0/
  */
-#include <stdio.h>a
+#include <stdio.h>
 #include <stdlib.h>
-#include <math.h>aaaaa
+#include <math.h>
 #include <sys/time.h>
 #include <omp.h>
 
@@ -153,7 +153,7 @@ int main(int argc, char *argv[])
 {
     int i, j, k;
 
-    int v = 0;
+   
     /* 1.1. Read arguments */
     if (argc < 3)
     {
