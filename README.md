@@ -71,6 +71,7 @@ chmod +x "filename".sh -  to give kernel permission to run the bash file
 
 
 -------------------------------------SCRIPTS-----------------------------------------------------
+
 Arguments: 
     arg1 -> array size
     arg2 -> list of wave files 
