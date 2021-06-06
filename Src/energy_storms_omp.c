@@ -14,9 +14,9 @@
  * This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.
  * https://creativecommons.org/licenses/by-sa/4.0/
  */
-#include <stdio.h>
+#include <stdio.h>a
 #include <stdlib.h>
-#include <math.h>
+#include <math.h>aaaaa
 #include <sys/time.h>
 #include <omp.h>
 
@@ -152,9 +152,8 @@ Storm read_storm_file(char *fname)
 int main(int argc, char *argv[])
 {
     int i, j, k;
-    float maxVal = 0.0f;
-    int index = 0;
 
+    int v = 0;
     /* 1.1. Read arguments */
     if (argc < 3)
     {
@@ -194,11 +193,10 @@ int main(int argc, char *argv[])
         exit(EXIT_FAILURE);
     }
 
-//unified the two for initializing the layer and layer copy
+
 #pragma omp parallel for
     for (k = 0; k < layer_size; k++)
     {
-        // printf("threads: %d\n",omp_get_num_threads());
         layer[k] = 0.0f;
         layer_copy[k] = 0.0f;
     }
@@ -206,33 +204,29 @@ int main(int argc, char *argv[])
     /* 4. Storms simulation */
     //iteration for each wave file
 
-    for (i = 0; i < num_storms; i++)
-    {
+    for (i = 0; i < num_storms; i++) {
+        float maxVal = 0.0f;
+        int index = 0;
 
-        //4.1-> parallelizable block
         /* 4.1. Add impacts energies to layer cells */
         /* For each particle */
 
-        for (j = 0; j < storms[i].size; j++)
-        {
+        for (j = 0; j < storms[i].size; j++) {
             /* Get impact energy (expressed in thousandths) */
-            float energy = (float)storms[i].posval[j * 2 + 1] * 1000;
+            float energy = (float) storms[i].posval[j * 2 + 1] * 1000;
             /* Get impact position */
             int position = storms[i].posval[j * 2];
 
             /* For each cell in the layer */
 
-#pragma omp parallel for
-            for (k = 0; k < layer_size; k++)
-            {
+        #pragma omp parallel for
+            for (k = 0; k < layer_size; k++) {
                 /* Update the energy value for the cell */
                 update(layer, layer_size, k, position, energy);
             }
         }
 
-        //--------------------------------------------------------------------
 
-        //4.2 -> parallelizable block
         /* 4.2. Energy relaxation between storms */
         /* 4.2.1. Copy values to the ancillary array */
 
@@ -243,65 +237,54 @@ int main(int argc, char *argv[])
                   Skip updating the first and last positions */
         for (k = 1; k < layer_size - 1; k++)
             layer[k] = (layer_copy[k - 1] + layer_copy[k] + layer_copy[k + 1]) / 3;
-            //--------------------------------------------------------------------------------
-/* parallelizable block
-         * 4.3. Locate the maximum value in the layer, and its position
-         * */
-#pragma omp parallel private(maxVal, index)
-        {
 
-#pragma omp for nowait
-            for (k = 1; k < layer_size - 1; k++)
-            {
-                // printf("maxVal: %f\n", maxVal);
-                int con = layer[k] > maxVal ? 1 : 0;
+        /* 4.3. Locate the maximum value in the layer, and its position */
+        #pragma omp parallel private(maxVal, index)
+         {
 
-                /* Check it only if it is a local maximum */
-                if (layer[k] > layer[k - 1] && layer[k] > layer[k + 1])
-                {
-                    if (con == 1)
-                    {
-                        // printf("i'm here %d\n",index);
+            #pragma omp for nowait
+                 for (k = 1; k < layer_size - 1; k++) {
+                    if (layer[k] > maxVal) {
                         maxVal = layer[k];
                         index = k;
                     }
 
-                    if (layer[k] > maximum[i])
-                    {
-#pragma omp atomic write
-                        maximum[i] = maxVal;
-#pragma omp atomic write
-                        positions[i] = k;
-                    }
+                /* Check it only if it is a local maximum */
+                if (layer[k] > layer[k - 1] && layer[k] > layer[k + 1]) {
+                    #pragma omp critical
+                         if (layer[k] > maximum[i]) {
+                             maximum[i] = maxVal;
+                             positions[i] = index;
+                          }
                 }
             }
         }
     }
 
-    /* END: Do NOT optimize/parallelize the code below this point */
+        /* END: Do NOT optimize/parallelize the code below this point */
 
-    /* 5. End time measurement */
-    ttotal = cp_Wtime() - ttotal;
+        /* 5. End time measurement */
+        ttotal = cp_Wtime() - ttotal;
 
 /* 6. DEBUG: Plot the result (only for layers up to 35 points) */
-#ifdef DEBUG
-    debug_print(layer_size, layer, positions, maximum, num_storms);
-#endif
+        #ifdef DEBUG
+        debug_print(layer_size, layer, positions, maximum, num_storms);
+        #endif
 
-    /* 7. Results output, used by the Tablon online judge software */
-    printf("\n");
-    /* 7.1. Total computation time */
-    printf("Time: %lf\n", ttotal);
-    /* 7.2. Print the maximum levels */
-    printf("Result:");
-    for (i = 0; i < num_storms; i++)
-        printf(" %d %f", positions[i], maximum[i]);
-    printf("\n");
+        /* 7. Results output, used by the Tablon online judge software */
+        printf("\n");
+        /* 7.1. Total computation time */
+        printf("Time: %lf\n", ttotal);
+        /* 7.2. Print the maximum levels */
+        printf("Result:");
+        for (i = 0; i < num_storms; i++)
+            printf(" %d %f", positions[i], maximum[i]);
+        printf("\n");
 
-    /* 8. Free resources */
-    for (i = 0; i < argc - 2; i++)
-        free(storms[i].posval);
+        /* 8. Free resources */
+        for (i = 0; i < argc - 2; i++)
+            free(storms[i].posval);
 
-    /* 9. Program ended successfully */
-    return 0;
-}
+        /* 9. Program ended successfully */
+        return 0;
+    }

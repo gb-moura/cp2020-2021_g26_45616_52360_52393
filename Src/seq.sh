@@ -5,7 +5,7 @@ do
         i=$(($i+1))
         echo "$i"
 	#./print.sh
-	./energy_storms_seq 1000000 test_files/test_07_a1M_p5k_w1
+	./energy_storms_seq 1000000 test_files/test_07_a1M_p5k_w1 test_files/test_07_a1M_p5k_w2
 	sleep $2
 	
 done | tee output_seq_file.csv
