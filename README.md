@@ -41,6 +41,8 @@ How to run:
 If you want to run the scripts you need to create them as instructed on the "SET UP THE SCRIPTS" zone
 
 ------------------------------SET UP THE SCRIPTS-------------------------------------------------
+
+
 The Scripts were made to run on a linux Ubunto and WSL Ubunto enviornment.
 
 It is necessary to create the files, instead of pushing of the repository, so the script can run without problems
