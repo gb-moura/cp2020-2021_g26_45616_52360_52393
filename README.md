@@ -11,6 +11,7 @@ Group Trasgo, Universidad de Valladolid (Spain)
 How to compile the program: 
 
 Parallel version - make energy_storms_omp
+
 Sequential version - make energy_storms_seq
 
 
@@ -18,11 +19,15 @@ Sequential version - make energy_storms_seq
 Arguments:
 
 arg1 -> array size(ver tamanho necessário na especificação do teste)
+
 arg2 -> list of wave files
+
 arg3 -> number of times that we want to run the test
+
 arg4 -> time in seconds for the program to wait to run again
 
 How to run:
+
 1. Compile the program
 2. 
     2.1 - Sequential Version:
@@ -49,22 +54,22 @@ It is necessary to create the files, instead of pushing of the repository, so th
 
     Sequential Script:
 
-touch "filename".sh
-nano "filename".sh
-copy the code of Script 3 or Script 4, depending on if you want to save the output on a excel file, and paste it on your script file.
-Ctrl+X e enter - to save the file
-cat "filemame".sh -  to see if the script was saved
-chmod +x "filename".sh -  to give kernel permission to run the bash file 
+touch "filename".sh\
+nano "filename".sh\
+copy the code of Script 3 or Script 4, depending on if you want to save the output on a excel file, and paste it on your script file.\
+Ctrl+X e enter - to save the file\
+cat "filemame".sh -  to see if the script was saved\
+chmod +x "filename".sh -  to give kernel permission to run the bash file \
 
 
     Parallel Script:
 
-touch "filename".sh
-nano "filename".sh
-copy the code of Script 1 or Script 2, depending on if you want to save the output on a excel file, and paste it on your script file.
-Ctrl+X e enter - to save the file
-cat "filemame".sh -  to see if the script was saved
-chmod +x "filename".sh -  to give kernel permission to run the bash file 
+touch "filename".sh\
+nano "filename".sh\
+copy the code of Script 1 or Script 2, depending on if you want to save the output on a excel file, and paste it on your script file.\
+Ctrl+X e enter - to save the file\
+cat "filemame".sh -  to see if the script was saved\
+chmod +x "filename".sh -  to give kernel permission to run the bash file\
 
 
 
@@ -72,9 +77,9 @@ chmod +x "filename".sh -  to give kernel permission to run the bash file
 
 -------------------------------------SCRIPTS-----------------------------------------------------
 
-Arguments: 
-    arg1 -> array size
-    arg2 -> list of wave files 
+Arguments: \
+    arg1 -> array size\
+    arg2 -> list of wave files\
 
 
 Script1 - Parallel version to save output on a excel file
