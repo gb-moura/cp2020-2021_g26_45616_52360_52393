@@ -92,9 +92,9 @@ do\
         echo "$i"\
 	#./print.sh\
 	./energy_storms_omp arg1 arg2\
-	sleep $2\
+	sleep $2
 	
-done | tee output_file.csv\
+done | tee output_file.csv
 
 Script 2 - Parallel version to only run the test several times\
 
@@ -106,9 +106,9 @@ do\
         echo "$i"\
 	#./print.sh\
 	./energy_storms_omp arg1 arg2\
-	sleep $2\
+	sleep $2
 	
-done\
+done
 
 Sequential\
 Script 3 - Sequential version to save the output on a excel file\
@@ -121,9 +121,9 @@ do\
         echo "$i"\
 	#./print.sh\
 	./energy_storms_seq arg1 arg2\
-	sleep $2\
+	sleep $2
 	
-done | tee output_seq_file.csv\
+done | tee output_seq_file.csv
 
 
 Script 4 - Sequential version to run a test several times\
@@ -134,9 +134,10 @@ do\
         i=$(($i+1))\
         echo "$i"\
 	#./print.sh\
-	./energy_storms_seq arg1 arg2\
-	sleep $2\
-	
+	./energy_storms_seq arg1 arg2
+	sleep $2	
 done 
+
+
 --------------------------------------------------------------
 
