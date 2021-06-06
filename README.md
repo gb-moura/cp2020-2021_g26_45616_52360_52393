@@ -90,9 +90,9 @@ while [ $i -ne $1 ]\
 do\
         i=$(($i+1))\
         echo "$i"\
-	#./print.sh\
-	./energy_storms_omp arg1 arg2\
-	sleep $2
+        #./print.sh\
+        ./energy_storms_omp arg1 arg2\
+        sleep $2
 	
 done | tee output_file.csv
 
@@ -104,9 +104,9 @@ while [ $i -ne $1 ]\
 do\
         i=$(($i+1))\
         echo "$i"\
-	#./print.sh\
-	./energy_storms_omp arg1 arg2\
-	sleep $2
+        #./print.sh\
+        ./energy_storms_omp arg1 arg2\
+        sleep $2
 	
 done
 
@@ -119,9 +119,9 @@ while [ $i -ne $1 ]\
 do\
         i=$(($i+1))\
         echo "$i"\
-	#./print.sh\
-	./energy_storms_seq arg1 arg2\
-	sleep $2
+        #./print.sh\
+        ./energy_storms_seq arg1 arg2\
+        sleep $2
 	
 done | tee output_seq_file.csv
 
@@ -133,12 +133,12 @@ while [ $i -ne $1 ]\
 do\
         i=$(($i+1))\
         echo "$i"\
-	#./print.sh\
-	./energy_storms_seq arg1 arg2
-	sleep $2
+        #./print.sh\
+        ./energy_storms_seq arg1 arg2
+        sleep $2
 	
 done 
 
+--------------------------SCRIPTS END-----------------------------
 
---------------------------------------------------------------
 
