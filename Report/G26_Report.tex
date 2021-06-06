@@ -673,17 +673,29 @@ By analysing this block, we came across a considerable problem: by applying para
 \end{itemize}
 
 \subsubsection{Sequential Function}
-Subsubsection text here.
+Although it is not an implemented solution, it is important to analyse the performance and speed up values the sequential version can produce.
+\\
+(MOSTRAR VALORES?)
 
 \subsubsection{{\itshape Atomic} Function}
-At first this implementation was slightly faster than the other two enumerated, and was decided to keep it parallelized with this function. Although, after running several test using a different number of threads, we arrived at the conclusion that it was not a viable solution, because, as happened in the initial try, some values were being returned incorrectly. This could be because of the fact that the {\itshape atomic} function only just be able to perform atomic operations to update variables, conflicting with the verification to determine the maximum of the array of values.
+The usage of {\itshape OpenMP's} atomic operation allows a multiple threads to update a shared numeric variable.
+\\At first this implementation was slightly faster than the other two enumerated, and was decided to keep it parallelized with this function. Although, after running several test using a different number of threads, we arrived at the conclusion that it was not a viable solution, because, as happened in the initial try, some values were being returned incorrectly. This could be because of the fact that the {\itshape atomic} function only just be able to perform atomic operations to update variables, conflicting with the verification to determine the maximum of the array of values.
 
 \subsubsection{{\itshape Critical} Function}
-Subsubsection text here.
+Using {\itshape OpenMP's} critical function allows to set a section of the code as critical, meaning that only one thread at a time can enter that bit. Only when a thread is finished running the delimited section, can the next thread run it.
+\\Compared to the atomic implementation, by being able to syncronize the access to blocks by different threads, the accuracy errors discovered above mentioned were solved, at the cost of decreased performance.
+
+\subsection{Result comparison}
+
+After implementing the best found solution, resorting to {\itshape OpenMP's} critical operation, maintaining the needed accuracy, we proceeded to run the tests with different numbers of threads. To analyse the values in the best way possible, we run the the code with two, four, eight, sixteen and eighteen threads.
+\\(FALAR GRÁFICO)
+\\With the values presented above, we can conclude that, as we increase the number of threads, the execution time of our program was decreasing slightly. We can observe this phenomenon happen on up to sixteen threads. After this number, the execution time starts rising, being the performance cap at sixteen threads.
+\\We associate this behaviour to the fact that the machine used to run the tests was running on a {\itshape WSL} environment, enabling to run native {\itshape Linux} command-line tools directly on Windows. This {\itshape WSL} environment was set to sixteen logical cores, limiting the recognized cores to run this implementation, being consequently limited in terms of efficiency to sixteen threads.
 
 \section{Conclusion}
 The conclusion goes here.
-Ao comparamos estas três versões em tempos de execução, conseguimos que a versão 4.2 era ligeiramente mais rápida. decidindo inicialmente ficar com esta, no entanto, após correr alguns testes com nº de threads diferentes chegamos à conclusão de que esta não era a melhor solução visto devolver alguns valores errados. Isto poderá dever se ao facto de a função atomic, apenas conseguir realizar operações atomicas para atualizar variaveis. O que poderá ter entrado em conflito na verificação para determinar  valor maximo dos valores. Assim decidimos usar a função critical, que também permite sincronizar o acesso a blocos por diferente threads. corrigindo os nossos erros de accuracy.
+(VOU PRECISAR DE AJUDA AQUI)
+
 
 
 % if have a single appendix:
