@@ -376,7 +376,7 @@
 % not capitalized unless they are the first or last word of the title.
 % Linebreaks \\ can be used within to get better formatting as desired.
 % Do not put math or special symbols in the title.
-\title{Bare Demo of IEEEtran.cls for\\ IEEE Computer Society Journals}
+\title{Implementation and Performance\\Analysis of a Parallelized Solution for\\{\itshape Storms of High-energy Particles}}
 %
 %
 % author names and IEEE memberships
@@ -403,14 +403,12 @@
 \author{Gonçalo~Moura,~\IEEEmembership{Student,~52361,}
         Gonçalo~Querido,~\IEEEmembership{Student,~45616,}
         and~Renato~Oliveira,~\IEEEmembership{Student,~52393}% <-this % stops a space
-\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem M. Shell was with the Department
-of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
-GA, 30332.\protect\\
+\IEEEcompsocitemizethanks{\IEEEcompsocthanksitem All three students were enrolled at NOVA School of Science and Technology, Department of Computer Science.\protect\\
 % note need leading \protect in front of \\ to get a newline within \thanks as
 % \\ is fragile and will error, could use \hfil\break instead.
-E-mail: see http://www.michaelshell.org/contact.html
-\IEEEcompsocthanksitem J. Doe and J. Doe are with Anonymous University.}% <-this % stops an unwanted space
-\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}}
+E-mails: gb.moura@campus.fct.unl.pt; gq.sousa@campus.fct.unl.pt; rjs.oliveira@campus.fct.unl.pt
+}% <-this % stops an unwanted space
+}
 
 % note the % following the last \IEEEmembership and also \thanks - 
 % these prevent an unwanted space from occurring between the last author name
@@ -433,7 +431,7 @@ E-mail: see http://www.michaelshell.org/contact.html
 
 
 % The paper headers
-\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+\markboth{Concurrency and Parallelism, June~2021}%
 {Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for Computer Society Journals}
 % The only time the second header will appear is for the odd numbered pages
 % after the title page when using the twoside option.
@@ -473,14 +471,13 @@ E-mail: see http://www.michaelshell.org/contact.html
 % in the abstract or keywords.
 \IEEEtitleabstractindextext{%
 \begin{abstract}
-In this report we will approach topics regarding the parallelization of a problem concerning a programming code that simulates high-energy particles bombardment on a surface. Through a given code, this report is focused on analysing the effect of the speed up and accuracy of a parallelized code compared to its sequential version, using the application programming interface {\itshape OpenMP}, that allows multithreading, and using the {\itshape Instruments} Profiler to measure memory/resource usage during the execution to evaluate where better to act. To overcome the parallelization problems found, the solution will be based on the slides given to us on the theoretical and practical classes, having always in regard the bibliography suggested for study.
+In this report we will approach topics regarding the parallelization of a problem concerning a programming code that simulates high-energy particles bombardment on a surface. Through a given code, this report is focused on analysing the effect of the speed up and accuracy of a parallelized code compared to its sequential version, using the application programming interface {\itshape OpenMP}, that allows for a multithreading implementation, and using the {\itshape Instruments} Profiler to measure memory/resource usage during the execution to evaluate where better to act. To overcome the parallelization problems found, the solution will be based on the slides given to us on the theoretical and practical classes, having always in regard the bibliography suggested for study.
 \end{abstract}
 }
 
 
 % make the title area
 \maketitle
-
 
 % To allow for easy dual compilation without having to reenter the
 % abstract/keywords data, the \IEEEtitleabstractindextext text will
@@ -537,8 +534,8 @@ In this report we will approach topics regarding the parallelization of a proble
 \IEEEPARstart{T}{his} report will be focused on the implementation of a possible parallelized solution regarding the problem of {\itshape Storms of High-energy Particles}. This solution will be used to compare and analyze performance and speed-up results against its sequential version.
 \\During the report, every bit of code that was thought to be beneficial to be parallelized will be discussed, giving a theoretical context on why it was decided, supported by tested results. We will discuss the implementation strategy as well as all the problems had in its execution. To measure the amount of resources used and to analyze the code {\itshape hotspots}, we resorted to a {\itshape profiler}, and in this report we chose {\itshape Instruments} for {\itshape MAC OS} for this purpose. Due to running errors later encountered, our results from comparing the sequential version to the pararellized one were measured from a machine with {\itshape LINUX OS}.
 \\The {\itshape OpenMP} API (aplication programming interface) was used for this implementation as specified in the project requirements, allowing for a simple and flexible interface for programs that require parallelism within a multi-core node, allowing for an implementation of multithreading, 
-\\To proceed to a proper analysis, assuring there are as fewer changes as possible, all nine tests present in the assignment were run in the same machine forty times using each solution: forty times the sequential code and forty times the parallelized code. The results shown for each test case are based on the average of the forty times it was run.
-\\All graphics shown in this report show the size of the array in the X axis and the execution time in the Y axis.
+\\To proceed to a proper analysis, assuring there are as fewer changes as possible, all tests were run in the same machine. Most of them were run forty times using each solution (forty times the sequential code and forty times the parallelized code) while others, more specifically tests seven, eight and nine, were only run twenty-five times due to their bigger execution runtime. The results shown for each test case are based on the average of the times it was run.
+\\All graphics shown in this report show the size of the array in the X axis and the execution time in the Y axis. (CORRIGIR)
 
 
 % An example of a floating figure using the graphicx package.
@@ -636,37 +633,58 @@ In this report we will approach topics regarding the parallelization of a proble
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
 
-\section{Profiler}
-In order to discover CPU activity variation and memory allocation for each step of the code, we used a profiler to display the events occurring in the application. The one chosen to discover what was needed was {\itshape Instruments} (formerly known as {\itshape Xray}), for MAC OS.
-\\By using this profiler, we discovered that, by running the {\itshape .omp} file, it uses 20.3 percent of the computer processor. On the same information, we can see that the update function present in the given code takes 18.4 percent, as seen in {\itshape Fig. 1}. By doing the math, we can conclude that the update function ends up weighting as much as 90.64 percent on the processor.
-\\With this information, we can conclude that most of the processing power goes to the update function, so (NÃO SEI AINDA O QUE PÔR AQUI)
+\section{OpenMP API}
 
-\begin{figure}[t]
+{\itshape OpenMP} is a parallel programming model for multiprocessor architectures, providing a portable and scalable model for developers of shared memory parallel applications. It allows programmers to set the maximum number of threads a program can create to run in parallel within the bit of code that is marked accordingly, running that section independently. At the end, the threads then join back into the primary one, continuing to the end of the program.\\It gives access to an extensive library specialized in dealing with threads for parallelization purposes.
+
+\begin{figure}[b]
     \centering
     \includegraphics[scale=0.4]{Screenshot_2021-06-03_at_17.00.42.png}
     \caption{\itshape{Output of the Profiler Instruments after the first excecution}}
     \label{fig:my_label}
 \end{figure}
 
-\section{OpenMP API}
+\section{Profiler}
 
-{\itshape OpenMP} is a parallel programming model for multiprocessor architectures, providing a portable and scalable model for developers of shared memory parallel applications. It allows programmers to set the maximum number of threads a program can create to run in parallel within the bit of code that is marked accordingly, running that section independently. At the end, the threads then join back into the primary one, continuing to the end of the program. 
+In order to discover CPU activity variation and memory allocation for each step of the code, we used a profiler to display the events occurring in the application. The one chosen to discover what was needed was {\itshape Instruments} (formerly known as {\itshape Xray}), for MAC OS.
+\\By using this profiler, we discovered that, by running the {\itshape .omp} file, it uses 20.3 percent of the computer processor. On the same information, we can see that the update function present in the given code takes 18.4 percent, as seen in {\itshape Fig. 1}. By doing the math, we can conclude that the update function ends up weighting as much as 90.64 percent on the processor.
+\\With this information, we can conclude that most of the processing power goes to the {\itshape update} function. With this information, we can claim that this function is a discovered {\itshape hotspot}, so it his in our interest to parallelize the parts of the code that invoke this function in order the improve the execution performance.
+
 
 \section{Parallelized Code}
 
-In this section we will talk about the parts of the code present in the .omp file, referencing the sections by the name of the method and the number of the section in that method (if there is one, if not it will be specified by the line number).
+In this section we will talk about the parts of the code we thought would improve performance by applying parallelization, as present in the {\itshape .omp} file, referencing the sections by the name of the method and the number of the block in that method (if there is one, if not it will be specified by the line number).
+\\As discussed before, we were able to find the {\itshape hotspot} through the analysis of profiler's result, and therefore we want to try to parallelize all the situations where the function {\itshape update} is invoked and check for results and possible improvements on performance.
 
-\subsection{Subsection Heading Here}
-Subsection text here.
+\subsection{Parallelizing the {\itshape update} Function}
+
+A simple parallelization was aplied to the function {\itshape for} cycle, using, as mentioned before, the {\itshape OpenMP} library. After this implementation we proceeded in analysing the next blocks of code to see if it was worth to parallelize. For example, we analyzed block 4.2, that updates the arrays {\itshape layer} and {\itshape layer\_copy} using basic operations, not being necessary to apply a parallelization.
 
 % needed in second column of first page if using \IEEEpubid
 %\IEEEpubidadjcol
 
-\subsubsection{Subsubsection Heading Here}
+\subsection{Block 4.3}
+
+By analysing this block, we came across a considerable problem: by applying parallelization on this section and updating the values, they were being printed with incorrect values. This happened due to the fact that several threads were trying to access the same position of the vector, and changing the same value each time a thread accessed one position. To overcome this issue, three different approaches were tried: 
+\begin{itemize}
+  \item using the sequential function;
+  \item using the {\itshape atomic} function from the {\itshape OpenMP} library;
+  \item using the {\itshape critical} function also from the {\itshape OpenMP} library.
+\end{itemize}
+
+\subsubsection{Sequential Function}
+Subsubsection text here.
+
+\subsubsection{{\itshape Atomic} Function}
+At first this implementation was slightly faster than the other two enumerated, and was decided to keep it parallelized with this function. Although, after running several test using a different number of threads, we arrived at the conclusion that it was not a viable solution, because, as happened in the initial try, some values were being returned incorrectly. This could be because of the fact that the {\itshape atomic} function only just be able to perform atomic operations to update variables, conflicting with the verification to determine the maximum of the array of values.
+
+\subsubsection{{\itshape Critical} Function}
 Subsubsection text here.
 
 \section{Conclusion}
 The conclusion goes here.
+Ao comparamos estas três versões em tempos de execução, conseguimos que a versão 4.2 era ligeiramente mais rápida. decidindo inicialmente ficar com esta, no entanto, após correr alguns testes com nº de threads diferentes chegamos à conclusão de que esta não era a melhor solução visto devolver alguns valores errados. Isto poderá dever se ao facto de a função atomic, apenas conseguir realizar operações atomicas para atualizar variaveis. O que poderá ter entrado em conflito na verificação para determinar  valor maximo dos valores. Assim decidimos usar a função critical, que também permite sincronizar o acesso a blocos por diferente threads. corrigindo os nossos erros de accuracy.
+
 
 % if have a single appendix:
 %\appendix[Proof of the Zonklar Equations]
